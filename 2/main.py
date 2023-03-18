@@ -1,7 +1,6 @@
 from turtle import *
 import random
 import json
-from operator import xor
 
 
 
@@ -31,7 +30,7 @@ class QA_pair():
         return "{:>3}".format(f"{self.num1}") + "{:>2}".format(f"{self.operator_dict[self.operator]}") + "{:>3}".format(f"{self.num2}") + " = " + "{:>3}".format(f"{int(self.result)}")
     
     def check_available(self):
-        return (self.result % 1 == 0) and (100 > self.result > 0) and (xor(self.operator == '/', self.num2 == 1))
+        return (self.result % 1 == 0) and (100 > self.result > 0) and (False if (self.num2 == 1 and self.operator == '/') else True)
     
 class Paper():
     '''
