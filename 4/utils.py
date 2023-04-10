@@ -1,5 +1,6 @@
 import fitz
-
+import cv2
+import numpy as np
 
 def pdf_to_jpg(name):
 
@@ -24,4 +25,11 @@ def pdf_to_jpg(name):
 #         print(dir(pm._writeIMG))
         pm._writeIMG(f'output/{pic_name}',1)
 
-pdf_to_jpg(r'demo.pdf')
+def make_blank_paper(size):
+    blank = np.array(842,595,3)
+if __name__ == "__main__":
+    blank = np.zeros((842,595,3))
+    blank[::] = 255
+    cv2.imshow('test', blank)
+    cv2.waitKey()
+    #pdf_to_jpg(r'demo.pdf')
