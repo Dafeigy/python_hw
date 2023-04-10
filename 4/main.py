@@ -1,4 +1,6 @@
 import fitz
+
+
 def pdf_to_jpg(name):
 
     pdfdoc=fitz.open(name)
