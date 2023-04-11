@@ -552,6 +552,8 @@ class INPUT(ctypes.Structure):
 # example:
 if __name__ == '__main__':
     sleep(3)
+    tempo = 80
+    ratio = 10/tempo
     keys = Keys()
     # 小星星简谱
     song = [1,1,5,5,6,6,5,4,4,3,3,2,2,1,5,5,4,4,3,3,2,5,5,4,4,3,3,2,1,1,5,5,6,6,5,4,4,3,3,2,2,1]
@@ -572,7 +574,7 @@ if __name__ == '__main__':
 
         # keyboard (direct keys)
         keys.directKey(keymap[each[0]])
-        sleep(each[1])
+        sleep(each[1] * ratio)
         keys.directKey(keymap[each[0]], keys.key_release)
 
     # # keyboard (virtual keys)
