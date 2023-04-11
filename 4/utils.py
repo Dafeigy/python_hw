@@ -5,12 +5,7 @@ from PIL import Image
 import numpy as np
 import requests
 
-
-
 banner_path = 'template/banner.jpg'
-
-
-    
 
 def download_banner(id):
     img_url = f"http://api.k780.com/?app=barcode.get&bc_text={id}&appkey=10003&sign=b59bc3ef6191eb9f747dd4e83c99f2a4"
@@ -47,7 +42,6 @@ def make_block(img):
 
 def make_banner():
     banner_logo = cv2.imread(r'template\banner.jpg')
-    print(banner_logo.shape)
     banner = np.zeros((86,722,3))
     banner[::] = 255
     banner[10:banner_logo.shape[0]+10,722-banner_logo.shape[1]-10:722-10] = banner_logo
@@ -92,29 +86,27 @@ def merge_pdf( folderPath, pdfFilePath ):
     for file in files:
         if 'jpg' in file:
             jpgFiles.append( folderPath + file )
-    jpgFiles.sort()
+    jpgFiles.sort(key=lambda x: int(x.split('output/')[1].split('.jpg')[0]))
+    print(jpgFiles)
     output = Image.open( jpgFiles[0] )
     jpgFiles.pop(0)
     for file in jpgFiles:
-        jpgFile = Image.open( file )
+        jpgFile = Image.open(file)
         if jpgFile.mode == "RGB":
-            jpgFile = jpgFile.convert( "RGB" )
-        sources.append( jpgFile )
-    output.save( pdfFilePath, "pdf", save_all=True, append_images=sources )
-
-
-
+            jpgFile = jpgFile.convert("RGB")
+        sources.append(jpgFile)
+    output.save(pdfFilePath, "pdf", save_all=True, append_images=sources)
 
 
 if __name__ == "__main__":
-    print(dir(fitz.Document))
+    download_banner('202211469')
     in_pdf = r'demo.pdf'
     out_pdf = r'demo-reshape.pdf'
     make_paper(in_pdf)
     merge_pdf('output/',out_pdf)
 
-    # page = make_page()
+    # # page = make_page()
     
-    # cv2.imshow('test',page)
-    # cv2.waitKey()
-    # pdf_to_jpg(r'demo.pdf')
+    # # cv2.imshow('test',page)
+    # # cv2.waitKey()
+    # # pdf_to_jpg(r'demo.pdf')
